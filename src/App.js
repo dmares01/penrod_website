@@ -34,19 +34,19 @@ class CityList extends React.Component{
         };
         let Milwaukee = Object.create(cityObject);
         Milwaukee.name = "Milwaukee";
-        Milwaukee.temperatureData = "20 °F";
+        Milwaukee.temperatureData = 20;
         Milwaukee.iconCode = "01D";
         let Minneapolis = Object.create(cityObject);
         Minneapolis.name = "Minneapolis";
-        Minneapolis.temperatureData = "20 °F";
+        Minneapolis.temperatureData = 40;
         Minneapolis.iconCode = "01D";
         let Chicago = Object.create(cityObject);
         Chicago.name = "Chicago";
-        Chicago.temperatureData = "20 °F";
+        Chicago.temperatureData = 15;
         Chicago.iconCode = "01D";
         let Dallas = Object.create(cityObject);
         Dallas.name = "Dallas";
-        Dallas.temperatureData = "20 °F";
+        Dallas.temperatureData = 60;
         Dallas.iconCode = "01D";
         let weather_data = new XMLHttpRequest();
         const api_url = "http://api.openweathermap.org/data/2.5/group?id=5263045,5037649,4887398,4684888&APPID=07df4cb7dd53c7d702e04e5c3f659e13&units=imperial";
@@ -84,21 +84,47 @@ class City extends React.Component{
         super(props);
         this.state = {
             name: props.name,
+            celsius: false,
+            units: "°F",
             temperature: props.temp,
             icon: props.icon,
         };
     }
     render(){
         return(
-            <div className={"city"}>
-                <h1>{this.state.name} </h1>
-                <p>{this.state.temperature}</p>
+            <div className={"city"} onClick={()=> this.expandCity()} title={"Click for more Weather Info"}>
+                <h1 onClick={()=> this.updateName()}>
+                        {this.state.name} </h1>
+
+                <p onClick={()=>this.changeUnits()}
+                   title={"Click to Change Units"}>
+                        {this.state.temperature}{this.state.units} </p>
+
                 <p>{this.state.icon}</p>
-                <button onClick={()=> this.updateCity()}> Change Name</button>
             </div>
         );
     }
-    updateCity() {
+    expandCity(){
+
+    }
+    changeUnits(){
+        let newTemperature = 0;
+        let newUnits = " ";
+        if(this.state.celsius){
+            newTemperature = ((this.state.temperature * 9/5)+ 32).toFixed(0);
+            newUnits = " °F";
+        }
+        else{
+            newTemperature = ((this.state.temperature - 32) * 5/9).toFixed(1);
+            newUnits = " °C";
+        }
+        this.setState({
+            temperature: newTemperature,
+            celsius: !this.state.celsius,
+            units: newUnits,
+        })
+    }
+    updateName() {
         this.setState({
             name: "butt"
         });
