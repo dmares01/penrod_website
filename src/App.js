@@ -6,7 +6,7 @@ class WeatherWebsite extends React.Component{
         return(
             <div>
                 <WeatherHeader />
-                <CityList/>
+                <CityList />
             </div>
 
         );
@@ -22,40 +22,43 @@ class WeatherHeader extends React.Component{
     }
 }
 class CityList extends React.Component{
-    componentWillMount() {
-    }
+    constructor(props){
+        super(props);
+        this.state = {
+            weatherTimer: 0
+        }
 
+    }
     render(){
 
         let cityObject = {
             name: "",
             temperatureData: 15,
-            iconCode: "bitch",
+            iconCode: "http://openweathermap.org/img/w/01d.png",
         };
         let Milwaukee = Object.create(cityObject);
         Milwaukee.name = "Milwaukee";
         Milwaukee.temperatureData = 20;
-        Milwaukee.iconCode = "01D";
         let Minneapolis = Object.create(cityObject);
         Minneapolis.name = "Minneapolis";
         Minneapolis.temperatureData = 40;
-        Minneapolis.iconCode = "01D";
         let Chicago = Object.create(cityObject);
         Chicago.name = "Chicago";
         Chicago.temperatureData = 15;
-        Chicago.iconCode = "01D";
         let Dallas = Object.create(cityObject);
         Dallas.name = "Dallas";
         Dallas.temperatureData = 60;
-        Dallas.iconCode = "01D";
         let weather_data = new XMLHttpRequest();
         const api_url = "http://api.openweathermap.org/data/2.5/group?id=5263045,5037649,4887398,4684888&APPID=07df4cb7dd53c7d702e04e5c3f659e13&units=imperial";
         weather_data.open('GET', api_url, true);
         weather_data.send();
+
         weather_data.onload = function(){
             let cityData = JSON.parse(weather_data.response);
             Milwaukee.name = cityData.list[0].name;
             Milwaukee.temperatureData = cityData.list[0].main.temp;
+            console.log(Milwaukee.temperatureData);
+
         };
 
         return(
@@ -67,6 +70,9 @@ class CityList extends React.Component{
             </div>
         )
     };//end of render
+    getData(){
+        this.renderCity()
+    }
     renderCity(city){
         return(
             <div>
@@ -93,14 +99,15 @@ class City extends React.Component{
     render(){
         return(
             <div className={"city"} onClick={()=> this.expandCity()} title={"Click for more Weather Info"}>
-                <h1 onClick={()=> this.updateName()}>
+                <h1 onClick={()=> this.updateName()}
+                    title={"Click to Change Name"}>
                         {this.state.name} </h1>
 
                 <p onClick={()=>this.changeUnits()}
                    title={"Click to Change Units"}>
                         {this.state.temperature}{this.state.units} </p>
 
-                <p>{this.state.icon}</p>
+                <img src={this.state.icon} alt={"icon"}/>
             </div>
         );
     }
@@ -125,8 +132,16 @@ class City extends React.Component{
         })
     }
     updateName() {
+        let cityName = this.state.name;
+        let odds = Math.ceil(Math.random()*100);
+        if(odds<50){
+            cityName = cityName.toUpperCase();
+        }
+        else{
+            cityName = cityName.toLowerCase();
+        }
         this.setState({
-            name: "butt"
+            name: cityName
         });
     }
 }
