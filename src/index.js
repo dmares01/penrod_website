@@ -4,11 +4,7 @@ import './index.css';
 import WeatherWebsite from './App';
 import * as serviceWorker from './serviceWorker';
 
-function tick(){
-    ReactDOM.render(<WeatherWebsite />, document.getElementById('root'));
-}
-//setInterval(tick,1000000);
-setTimeout(tick, 1);
+ReactDOM.render(<WeatherWebsite />, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

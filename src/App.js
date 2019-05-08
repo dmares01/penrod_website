@@ -15,9 +15,12 @@ class WeatherWebsite extends React.Component{
 class WeatherHeader extends React.Component{
     render(){
         return(
-            <header>
-                Please Click a City Below to See a Full Weather Report
-            </header>
+            <div>
+                <header>
+                    Please Click a City Below to See a Full Weather Report
+                </header>
+                <p className={"small_header"}> Try clicking the temperature for a city </p>
+            </div>
         );
     }
 }
@@ -93,12 +96,6 @@ class CityList extends React.Component{
         city.description = "Expect ";
         city.description += this.state.city[city.index].weather[0].description;
     }
-    /*
-    getAdditionalInfo(index){
-
-
-    }
-    */
     renderCity(city){
         return(
             <div>
@@ -140,17 +137,20 @@ class City extends React.Component{
         const hideExtra = this.state.expanded ? {display: 'none'} : {};
         return(
             <div className={"city"} >
-                <h1 onClick={()=> this.expandCity()}>{this.name} </h1>
+                <h1
+                    onClick={()=> this.expandCity()}
+                    title={"Click for More Info"}>
+                        {this.name} </h1>
                 <p onClick={()=>this.changeUnits()}
                    title={"Click to Change Units"}
                    className={"temp"}>
                         {this.state.temperature}{this.state.units} </p>
 
                 <img src={this.icon} alt={"icon"}/>
-                <p style={hideExtra}>{this.props.windSpeed} </p>
-                <p style={hideExtra}>{this.props.minTemp}{this.state.units}</p>
-                <p style={hideExtra}>{this.props.maxTemp}{this.state.units}</p>
-                <p style={hideExtra}>{this.props.description}</p>
+                <p style={hideExtra}> {this.props.windSpeed} </p>
+                <p style={hideExtra}> {this.props.minTemp}{this.state.units}</p>
+                <p style={hideExtra}> {this.props.maxTemp}{this.state.units}</p>
+                <p style={hideExtra}> {this.props.description}</p>
             </div>
         );
     }
