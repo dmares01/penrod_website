@@ -13,6 +13,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+img{
+  margin: 1rem;
+  width: 10rem;
+  height: 100%;
+}
 header{
   margin: 1rem;
   font-size: 5rem;
@@ -20,8 +25,11 @@ header{
   font-weight: 900;
   border-radius: 12px;
 }
+h1{
+  margin: 0 6rem 0 1rem;
+}
 p{
-  margin: 1rem;
+
 }
 .city{
   font-size: 4rem;
@@ -38,4 +46,8 @@ p{
   box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
   transform: translate3D(0, -8px, 0);
   background: #bbbbbb;
+}
+.temp{
+  margin-right: 1rem;
+  margin-left: auto;
 }
