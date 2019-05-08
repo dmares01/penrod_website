@@ -49,27 +49,25 @@ class CityList extends React.Component{
             name: " ",
             temperatureData: 0,
             iconCode: " ",
+            windSpeed: 0,
+            minTemp: 0,
+            maxTemp: 0,
+            description: " ",
+            index: 0,
         };
         let Milwaukee = Object.create(cityObject);
+        Milwaukee.index = 0;
         let Minneapolis = Object.create(cityObject);
+        Minneapolis.index = 1;
         let Chicago = Object.create(cityObject);
+        Chicago.index = 2;
         let Dallas = Object.create(cityObject);
+        Dallas.index = 3;
         if(this.state.city.length > 0) {
-            Milwaukee.name = this.state.city[0].name;
-            Milwaukee.temperatureData = Math.round(this.state.city[0].main.temp);
-            Milwaukee.iconCode = fetchIcon(this.state.city[0].weather[0].icon);
-
-            Minneapolis.name = this.state.city[1].name;
-            Minneapolis.temperatureData = Math.round(this.state.city[1].main.temp);
-            Minneapolis.iconCode = fetchIcon(this.state.city[1].weather[0].icon);
-
-            Chicago.name = this.state.city[2].name;
-            Chicago.temperatureData = Math.round(this.state.city[2].main.temp);
-            Chicago.iconCode = fetchIcon(this.state.city[2].weather[0].icon);
-
-            Dallas.name = this.state.city[3].name;
-            Dallas.temperatureData = Math.round(this.state.city[3].main.temp);
-            Dallas.iconCode = fetchIcon(this.state.city[3].weather[0].icon);
+            this.getInfo(Milwaukee);
+            this.getInfo(Minneapolis);
+            this.getInfo(Chicago);
+            this.getInfo(Dallas);
         }
 
         return(
@@ -81,7 +79,26 @@ class CityList extends React.Component{
             </div>
         )
     };//end of render
+    getInfo(city){
+        city.name = this.state.city[city.index].name;
+        city.temperatureData = Math.round(this.state.city[city.index].main.temp);
+        city.iconCode = fetchIcon(this.state.city[city.index].weather[0].icon);
+        city.windSpeed ="Wind Speed is currently ";
+        city.windSpeed +=this.state.city[city.index].wind.speed;
+        city.windSpeed += " MPH";
+        city.minTemp = "The low for today is ";
+        city.minTemp += Math.round(this.state.city[city.index].main.temp_min);
+        city.maxTemp = "The high for today is ";
+        city.maxTemp += Math.round(this.state.city[city.index].main.temp_max);
+        city.description = "Expect ";
+        city.description += this.state.city[city.index].weather[0].description;
+    }
+    /*
+    getAdditionalInfo(index){
 
+
+    }
+    */
     renderCity(city){
         return(
             <div>
@@ -89,6 +106,11 @@ class CityList extends React.Component{
                     name = {city.name}
                     temp = {city.temperatureData}
                     icon = {city.iconCode}
+                    windSpeed={city.windSpeed}
+                    minTemp={city.minTemp}
+                    maxTemp={city.maxTemp}
+                    description={city.description}
+
                 />
             </div>
         )
@@ -110,30 +132,39 @@ class City extends React.Component{
             celsius: false,
             units: "°F",
             temperature: props.temp,
-            expanded: false,
-            extra: null,
+            expanded: true,
+            windSpeed: null,
         };
     }
     render(){
+        const hideExtra = this.state.expanded ? {display: 'none'} : {};
         return(
             <div className={"city"} >
                 <h1 onClick={()=> this.expandCity()}>{this.name} </h1>
                 <p onClick={()=>this.changeUnits()}
                    title={"Click to Change Units"}
-                    className={"temp"}>
+                   className={"temp"}>
                         {this.state.temperature}{this.state.units} </p>
 
                 <img src={this.icon} alt={"icon"}/>
-                <p>{this.state.extra}</p>
+                <p style={hideExtra}>{this.props.windSpeed} </p>
+                <p style={hideExtra}>{this.props.minTemp}{this.state.units}</p>
+                <p style={hideExtra}>{this.props.maxTemp}{this.state.units}</p>
+                <p style={hideExtra}>{this.props.description}</p>
             </div>
         );
     }
     expandCity(){
-        if(!this.state.expanded){
+        if(!this.state.expanded) {
             this.setState({
-                extra: "Here is additional information",
+                extra:true,
                 expanded: !this.state.expanded,
-            })
+            });
+            return (
+                <div>
+                    <p>{this.props.windSpeed} MPH</p>
+                </div>
+            )
         }
         else{
             this.setState({
