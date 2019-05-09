@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import {Spinner} from '@salesforce/design-system-react';
+import {Tooltip} from '@salesforce/design-system-react';
+import {IconSettings} from '@salesforce/design-system-react';
 
 class WeatherWebsite extends React.Component{
     render(){
@@ -16,10 +19,19 @@ class WeatherHeader extends React.Component{
     render(){
         return(
             <div>
-                <header>
-                    Please Click a City Below to See a Full Weather Report
-                </header>
-                <p className={"small_header"}> Try clicking the temperature for a city </p>
+                <IconSettings iconPath="/assets/icons">
+                <Tooltip
+                    id= "header tooltip"
+                    content={"Click the temperature for a city and see what happens!"}
+                    align="bottom"
+                    dialogClassName="header__tooltip"
+                    position={"relative"}
+                    >
+                    <header>
+                        Please Click a City Below to See a Full Weather Report
+                    </header>
+                </Tooltip>
+                </IconSettings>
             </div>
         );
     }
@@ -45,7 +57,11 @@ class CityList extends React.Component{
     render(){
         if(this.state.isLoading){
             return(
-                <h1>Loading...</h1>
+                <div style={{ position: 'relative', height: '5rem' }}>
+                    <Spinner
+                        variant="base"
+                    />
+                </div>
             )
         }
         let cityObject = {
@@ -143,14 +159,14 @@ class City extends React.Component{
                         {this.name} </h1>
                 <p onClick={()=>this.changeUnits()}
                    title={"Click to Change Units"}
-                   className={"temp"}>
+                   className={"city__temp"}>
                         {this.state.temperature}{this.state.units} </p>
 
                 <img src={this.icon} alt={"icon"}/>
-                <p style={hideExtra}> {this.props.windSpeed} </p>
-                <p style={hideExtra}> {this.props.minTemp}{this.state.units}</p>
-                <p style={hideExtra}> {this.props.maxTemp}{this.state.units}</p>
-                <p style={hideExtra}> {this.props.description}</p>
+                <p className={"city__info"} style={hideExtra}> {this.props.windSpeed}</p>
+                <p className={"city__info"} style={hideExtra}> {this.props.minTemp}{this.state.units}</p>
+                <p className={"city__info"} style={hideExtra}> {this.props.maxTemp}{this.state.units}</p>
+                <p className={"city__info"} style={hideExtra}> {this.props.description}</p>
             </div>
         );
     }

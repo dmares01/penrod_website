@@ -1,53 +1,57 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    background: url("https://cdn.wallpapersafari.com/7/49/0oVBnO.jpg");
+    background-size: cover;
 }
 img{
-  margin: 1rem;
-  width: 10rem;
-  height: 100%;
+    margin: 1rem;
+    width: 10rem;
+    height: 100%;
 }
-header, .small_header{
-  margin: 1rem;
-  font-size: 5rem;
-  background: #115fdb;
-  font-weight: 900;
-  border-radius: 12px;
-}
-.small_header{
-  font-size: 3rem;
-  background: #116fdb;
+header, .header__tooltip{
+    margin: 1rem;
+    font-size: 5rem;
+    background: #dddddd;
+    font-weight: 900;
+    border-radius: 12px;
+    }
+.header__tooltip{
+    margin: 0 10rem;
+    font-size: 2rem;
+    background: lightblue;
 }
 h1{
-  margin: 0 6rem 0 1rem;
-}
-p{
-  margin: 0 8rem;
+    margin: 0 6rem 0 1rem;
 }
 .city{
-  font-size: 4rem;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 2rem;
-  background: #333333;
-  box-shadow: 2px 20px 25px rgba(0, 0, 0, 1);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all .2s linear;
+    font-size: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem;
+    background: #333333;
+    box-shadow: 2px 20px 25px rgba(0, 0, 0, 1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all .2s linear;
 }
 .city:hover{
-  box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
-  transform: translate3D(0, -8px, 0);
-  background: #bbbbbb;
+    box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
+    transform: translate3D(0, -8px, 0);
+    background: #bbbbbb;
 }
-.temp{
-  margin-right: 1rem;
-  margin-left: auto;
-  margin-top: 2rem;
+.city__temp{
+    margin-right: 1rem;
+    margin-left: auto;
+    margin-top: 2rem;
+}
+.city__info{
+    margin: 0 8rem;
+    font-weight: 500;
 }
