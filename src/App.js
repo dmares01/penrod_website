@@ -22,7 +22,7 @@ class WeatherWebsite extends React.Component{
 }
 /*
 This component displays a simple header with instructions on how to interact with the web page.
-The tooltip was added to show the added functionality added to the temp shown on screen.
+The tooltip was added to show the functionality tagged to the temp shown on screen.
  */
 class WeatherHeader extends React.Component{
     render(){
@@ -69,7 +69,7 @@ class CityList extends React.Component{
             .then(data => this.setState({ city: data.list, isLoading: false }));
     }
     /*
-    constructor to set initial state of the cityList and also contain a state for the data being fetched as well.
+    constructor to set initial state of cityList and also contain a state for the data being fetched as well.
      */
     constructor(props){
         super(props);
@@ -134,7 +134,7 @@ class CityList extends React.Component{
     };
     /*
     This function is used to pull the data for each city and place it into the city object. Some additional
-    formatting takes place to make the output more readable as well.
+    formatting takes place to make the output easier to read as well.
      */
     getInfo(currentCity){
         currentCity.name = this.state.city[currentCity.index].name;
@@ -197,16 +197,16 @@ class City extends React.Component{
             celsius: false,
             units: "°F",
             temperature: props.temp,
-            expanded: false,
+            hideExtra: false,
         };
     }
     /*
     This renders the city with the click handler attached to the name to expand the city on click, as well as the
     click handler for the temperature to change units. The style hideExtra is used so that the additional information
-    is only shown when the expanded trait is set to true.
+    is only shown when the hideExtra trait is set to true.
      */
     render(){
-        const hideExtra = this.state.expanded ? {} : {display: 'none'};
+        const hideExtra = this.state.hideExtra ? {} : {display: 'none'};
         return(
             <div className={"city"} >
                 <h1
@@ -227,11 +227,11 @@ class City extends React.Component{
         );
     }
     /*
-    A simple function used to flip the expanded state from true to false and vice versa when clicked
+    A simple function used to flip the hideExtra state from true to false and vice versa when clicked
      */
     expandCity() {
         this.setState({
-            expanded: !this.state.expanded,
+            hideExtra: !this.state.hideExtra,
         })
 
     }
